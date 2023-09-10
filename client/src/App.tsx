@@ -1,23 +1,32 @@
-import { sampleProducts } from './data'
+import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Outlet } from 'react-router-dom'
 
 function App() {
 
   return (
     <div className='d-flex flex-column vh-100'>
 
-      <header>E-commerce App</header>
+      <header>
+        <Navbar bg='dark' variant='dark' expand="lg">
+          <Container>
+            <Navbar.Brand>E-Commerce</Navbar.Brand>
+            <Nav>
+              <a href="/cart" className='nav-link'>Cart</a>
+              <a href="/signIn" className='nav-link'>Sign In</a>
+            </Nav>
+          </Container>
+        </Navbar>
+      </header>
       <main>
-        <ul>
-          {sampleProducts.map(product => (
-            <li key={product.slug}>
-              <img src={product.image} alt={product.name} className='product-image' />
-              <h2>{product.name}</h2>
-              <p>${product.price}</p>
-            </li>
-          ))}
-        </ul>
+        <Container className='mt-3'>
+          <Outlet />
+        </Container>
       </main>
-      <footer>All right reserved.</footer>
+      <footer>
+        <div className='text-center'>
+          All right reserved.
+        </div>
+      </footer>
 
     </div>
   )
