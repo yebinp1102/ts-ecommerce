@@ -13,6 +13,7 @@ import HomePage from './pages/HomePage.tsx'
 import ProductPage from './pages/ProductPage.tsx';
 import axios from 'axios'
 import { Provider } from 'react-redux'
+import {HelmetProvider} from 'react-helmet-async';
 import { store } from './store/store.ts'
 
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '/';
@@ -29,7 +30,9 @@ const router = createBrowserRouter(
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <HelmetProvider>
+        <RouterProvider router={router} />
+      </HelmetProvider>
     </Provider>
   </React.StrictMode>,
 )
