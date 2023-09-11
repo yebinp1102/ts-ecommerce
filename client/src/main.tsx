@@ -10,7 +10,12 @@ import {
   RouterProvider
 } from 'react-router-dom';
 import HomePage from './pages/HomePage.tsx'
-import ProductPage from './pages/ProductPage.tsx'
+import ProductPage from './pages/ProductPage.tsx';
+import axios from 'axios'
+import { Provider } from 'react-redux'
+import { store } from './store/store.ts'
+
+axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '/';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -23,6 +28,8 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>,
 )
