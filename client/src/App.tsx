@@ -1,7 +1,15 @@
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import { Outlet } from 'react-router-dom'
+import { useAppDispatch } from './store/store'
+import { useEffect } from 'react';
+import { fetchProducts } from './store/features/ProductSlice';
 
 function App() {
+  const dispatch = useAppDispatch();
+
+  useEffect(()=>{
+    dispatch(fetchProducts());
+  },[])
 
   return (
     <div className='d-flex flex-column vh-100'>
