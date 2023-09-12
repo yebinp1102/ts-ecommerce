@@ -1,21 +1,24 @@
-import { Container, Nav, Navbar } from 'react-bootstrap'
+import { Button, Container, Nav, Navbar } from 'react-bootstrap'
 import { Link, Outlet } from 'react-router-dom'
-import { useAppDispatch } from './store/store'
-import { useEffect } from 'react';
-import { fetchProducts } from './store/features/ProductSlice';
+import { useContext, useEffect } from 'react';
+import { Store } from './context/store';
 
 function App() {
-  const dispatch = useAppDispatch();
+  const {state: {mode} , dispatch} = useContext(Store);
 
   useEffect(()=>{
-    dispatch(fetchProducts());
-  },[])
+    document.body.setAttribute('data-bs-theme', mode);
+  },[mode])
+
+  const handleSwitchMode = () => {
+    dispatch({type: 'SWITCH_MODE'});
+  }
 
   return (
     <div className='d-flex flex-column vh-100'>
 
       <header>
-        <Navbar bg='dark' variant='dark' expand="lg">
+        <Navbar expand="lg">
           <Container>
             <Link to='/'>
               <Navbar.Brand>E-Commerce</Navbar.Brand>
@@ -23,6 +26,9 @@ function App() {
             <Nav>
               <a href="/cart" className='nav-link'>Cart</a>
               <a href="/signIn" className='nav-link'>Sign In</a>
+              <Button variant={mode} onClick={handleSwitchMode}>
+                <i className={mode === 'light' ? 'fa fa-sun' : 'fa fa-moon'} />
+              </Button>
             </Nav>
           </Container>
         </Navbar>
