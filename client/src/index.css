@@ -12,6 +12,11 @@
   box-sizing: border-box;
 }
 
+a {
+  text-decoration:none !important; 
+  color: inherit;
+}
+
 .product-image{
   max-width: 400px;
   width: 100%;
