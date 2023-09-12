@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar } from 'react-bootstrap'
-import { Outlet } from 'react-router-dom'
+import { Link, Outlet } from 'react-router-dom'
 import { useAppDispatch } from './store/store'
 import { useEffect } from 'react';
 import { fetchProducts } from './store/features/ProductSlice';
@@ -17,7 +17,9 @@ function App() {
       <header>
         <Navbar bg='dark' variant='dark' expand="lg">
           <Container>
-            <Navbar.Brand>E-Commerce</Navbar.Brand>
+            <Link to='/'>
+              <Navbar.Brand>E-Commerce</Navbar.Brand>
+            </Link>
             <Nav>
               <a href="/cart" className='nav-link'>Cart</a>
               <a href="/signIn" className='nav-link'>Sign In</a>
