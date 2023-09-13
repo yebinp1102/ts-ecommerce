@@ -33,7 +33,7 @@ const initialState :ProductState = {
 
 export const fetchProducts = createAsyncThunk("product/fetch", async() => {
   try{
-    const res = await axios.get('/api/products');
+    const res = await axios.get('/api/products/');
     return res.data;
   }catch(err){
     return getError(err as ApiError)
@@ -42,7 +42,7 @@ export const fetchProducts = createAsyncThunk("product/fetch", async() => {
 
 export const getProductDetail = createAsyncThunk("product/detail", async(slug: string) => {
   try{
-    const res = await axios.get(`/api/products/${slug}`);
+    const res = await axios.get(`/api/products/slug/${slug}`);
     return res.data;
   }catch(err){
     return getError(err as ApiError)

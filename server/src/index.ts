@@ -1,6 +1,19 @@
-import express, {Request, Response} from 'express';
-import { sampleProducts } from './data';
-import cors from 'cors'
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import mongoose from 'mongoose';
+import { productRouter } from './routers/productRouter';
+import { seedRouter } from './routers/seedRouter';
+
+dotenv.config();
+mongoose.set('strictQuery', true);
+mongoose.connect(process.env.MONGO_URL!)
+  .then(() => {
+    console.log('MongoDB is connected.');
+  })
+  .catch(() => {
+    console.log('Fail to connect MongoDB.');
+  })
 
 const app = express();
 app.use(cors({
@@ -11,15 +24,9 @@ app.use(cors({
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
-// get products list
-app.get('/api/products', (req: Request, res: Response) => {
-  return res.json(sampleProducts);
-});
+app.use('/api/products', productRouter);
+app.use('/api/seed', seedRouter);
 
-// get a product information
-app.get('/api/products/:slug', (req:Request, res :Response) => {
-  res.json(sampleProducts.find(x => x.slug === req.params.slug));
-})
 
 const PORT = 4000;
 app.listen(PORT, () => {
