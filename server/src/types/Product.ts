@@ -1,4 +1,5 @@
-export type Product = {
+export type ProductType = {
+  _id?: string
   name: string,
   slug: string,
   image: string,
