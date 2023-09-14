@@ -29,6 +29,13 @@ const CartPage = () => {
     navigate('/signin?redirect=/shipping');
   }
 
+  const handleRemoveItem = (item: CartItem) => {
+    dispatch({
+      type: 'CART_REMOVE_ITEM',
+      payload: item
+    })
+  }
+
   return (
     <div>
 
@@ -45,6 +52,7 @@ const CartPage = () => {
           {cartItems.length === 0 ? (
             <MessageBox>
               Cart is empty
+              <br/>
               <Link to="/">Look a round other products</Link>
             </MessageBox>
           ) : (
@@ -99,7 +107,7 @@ const CartPage = () => {
                     
                     {/* delete product from cart list */}
                     <Col md={2}>
-                      <Button variant={mode}>
+                      <Button variant={mode} onClick={() => handleRemoveItem(item)}>
                         <i className="fas fa-trash"></i>
                       </Button>
                     </Col>
