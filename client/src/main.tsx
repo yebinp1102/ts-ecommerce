@@ -17,6 +17,7 @@ import {HelmetProvider} from 'react-helmet-async';
 import { store } from './store/store.ts'
 import { StoreProvider } from './context/store.tsx'
 import CartPage from './pages/CartPage.tsx'
+import LoginPage from './pages/LoginPage.tsx'
 
 axios.defaults.baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:4000' : '/';
 
@@ -26,6 +27,7 @@ const router = createBrowserRouter(
       <Route index={true} element={<HomePage />} />
       <Route path='/product/:slug' element={<ProductPage />} />
       <Route path='/cart' element={<CartPage />} />
+      <Route path='/login' element={<LoginPage />} />
     </Route>
   )
 )
