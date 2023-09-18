@@ -26,7 +26,7 @@ const CartPage = () => {
   const handleCheckout = () => {
     // 1. redirect to signin page to make sure a user is signed in
     // 2. If he is signed in, redirect to shipping page to select payment method
-    navigate('/signin?redirect=/shipping');
+    navigate('/login?redirect=/shipping');
   }
 
   const handleRemoveItem = (item: CartItem) => {

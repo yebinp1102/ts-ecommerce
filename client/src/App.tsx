@@ -1,10 +1,14 @@
-import { Badge, Button, Container, Nav, Navbar } from 'react-bootstrap'
+import { Badge, Button, Container, Nav, NavDropdown, Navbar } from 'react-bootstrap'
 import { Link, Outlet } from 'react-router-dom'
 import { useContext, useEffect } from 'react';
 import { Store } from './context/store';
+import { useAppDispatch, useAppSelector } from './store/store';
+import { logout } from './store/features/UserSlice';
 
 function App() {
   const {state: {mode, cart} , dispatch} = useContext(Store);
+  const {userInfo } = useAppSelector(state => state.user)
+  const reduxDispatch = useAppDispatch();
 
   useEffect(()=>{
     document.body.setAttribute('data-bs-theme', mode);
@@ -12,6 +16,11 @@ function App() {
 
   const handleSwitchMode = () => {
     dispatch({type: 'SWITCH_MODE'});
+  }
+
+  const handleLogout = () => {
+    reduxDispatch(logout());
+    window.location.href = '/login'
   }
 
   return (
@@ -32,7 +41,16 @@ function App() {
                  </Badge>
                )}  
               </Link>
-              <a href="/signIn" className='nav-link'>Sign In</a>
+
+              {/* <a href="/login" className='nav-link'>login</a> */}
+              {userInfo ? (
+                <NavDropdown title={userInfo.name} id="basic-nav-dropdown">
+                  <Link className='dropdown-item' to="#signout" onClick={handleLogout}>Logout</Link>
+                </NavDropdown>
+              ): (
+                <Link className='nav-link' to="/login">Login</Link>
+              )}
+                
               <Button variant={mode} onClick={handleSwitchMode}>
                 <i className={mode === 'light' ? 'fa fa-sun' : 'fa fa-moon'} />
               </Button>

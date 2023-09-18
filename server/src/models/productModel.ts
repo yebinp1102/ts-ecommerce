@@ -1,9 +1,22 @@
-import {Schema, model, Model} from 'mongoose';
-import { ProductType } from '../types/Product';
+import { Schema, model} from 'mongoose';
 
-interface ProductModel extends Model<ProductType>{}
 
-const productSchema = new Schema<ProductType, ProductModel>({
+export interface ProductType {
+  _id?: string
+  name: string,
+  slug: string,
+  image: string,
+  category: string,
+  brand: string,
+  price: number,
+  countInStock: number,
+  description: string,
+  rating: number,
+  numReviews: number
+};
+
+
+const productSchema = new Schema<ProductType>({
   name: {type: String, required: true},
   slug: {type: String, required: true},
   image: {type: String, required: true},
@@ -16,6 +29,6 @@ const productSchema = new Schema<ProductType, ProductModel>({
   numReviews: {type: Number, required: true},
 }, {timestamps: true});
 
-const Product = model<ProductType, ProductModel>('Product', productSchema);
+export const Product = model<ProductType>('Product', productSchema);
 
-export {Product};
+
