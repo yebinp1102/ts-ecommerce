@@ -21,19 +21,19 @@ const LoginPage = () => {
   const dispatch = useAppDispatch();
   const {loading, userInfo} = useAppSelector(state => state.user);
 
-  console.log(userInfo);
-
   const handleLogin = async(e: React.SyntheticEvent) => {
     e.preventDefault();
     try{
       const userInfo = {email, password}
       const data = await dispatch(login(userInfo));
-      localStorage.setItem('userInfo', JSON.stringify(data));
+      console.log(data);
+      localStorage.setItem('userInfo', JSON.stringify(data.payload));
     }catch(err){
       toast.error(getError(err as ApiError))
     }
   }
 
+  // 유저가 로그인 한 상태이면 login 페이지에 접근 못하도록.
   useEffect(() => {
     if(userInfo){
       navigate(redirect);
@@ -71,7 +71,7 @@ const LoginPage = () => {
         </div>
         <div className="mb-3">
           New customer?{' '}
-          <Link to={`/signup?redirect=${redirect}`}>Create your account</Link>
+          <Link to={`/register?redirect=${redirect}`}>Create your account</Link>
         </div>
       </Form>
     </Container>
